@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Latihan 6 - Kalkulator Sederhana</title>
+    <style>
+        body { font-family: serif; padding: 20px; }
+        .input-group { margin-bottom: 10px; }
+        input { width: 150px; margin-right: 5px; }
+        
+        .button-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 35px); 
+            gap: 5px; 
+        }
+        button { width: 35px; height: 30px; cursor: pointer; }
+
+        #hasil { 
+            margin-top: 15px; 
+            font-size: 16px; 
+            font-weight: normal; 
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Kalkulator Sederhana</h2>
+
+    <div class="input-group">
+        <input type="number" id="bil1">
+        <input type="number" id="bil2">
+    </div>
+
+    <div class="button-grid">
+        <button onclick="hitung('+')">+</button>
+        <button onclick="hitung('-')">-</button>
+        <button onclick="hitung('x')">X</button>
+        <button onclick="hitung('/')">/</button>
+    </div>
+
+    <div id="hasil"></div>
+
+    <script>
+        function hitung(operator) {
+            let a = document.getElementById('bil1').value;
+            let b = document.getElementById('bil2').value;
+            let display = document.getElementById('hasil');
+
+            if (a !== "" && b !== "") {
+                let n1 = parseFloat(a);
+                let n2 = parseFloat(b);
+                let total;
+
+                if (operator === '+') total = n1 + n2;
+                else if (operator === '-') total = n1 - n2;
+                else if (operator === 'x') total = n1 * n2;
+                else if (operator === '/') total = n1 / n2;
+
+                display.innerText = total;
+            } else {
+                display.innerText = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
