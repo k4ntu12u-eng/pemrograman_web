@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="tombol1" onmouseenter="fungsi1(event)" onmouseleave="hilang()">paragraf 1</button>
+    <button id="tombol2" onmouseenter="fungsi2(event)" onmouseleave="hilang()">paragraf 2</button>
+
+    <p id="hasil"></p>
+
+    <script>
+        
+        function fungsi1(e) {
+            document.getElementById("hasil").textContent = "ini paragraf 1";
+        }
+
+        function fungsi2(e) {
+            document.getElementById("hasil").textContent = "ini paragraf 2";
+        }
+
+        function hilang() {
+            document.getElementById("hasil").textContent = "";
+        }
+
+    </script>
+</body>
+</html>
