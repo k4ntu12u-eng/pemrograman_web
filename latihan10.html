@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Latihan 10 - Menu Dropdown</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        
+        .menu-btn {
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+
+        .menu-list {
+            display: none; 
+            margin-top: 2px;
+            width: fit-content;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 5px 25px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background-color: #e2e2e2;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-btn" onclick="toggleMenu()">menu</button>
+
+    <div id="dropdownMenu" class="menu-list">
+        <div class="menu-item">menu 1</div>
+        <div class="menu-item">menu 2</div>
+        <div class="menu-item">menu 3</div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("dropdownMenu");
+            
+            if (menu.style.display === "block") {
+                menu.style.display = "none"; 
+            } else {
+                menu.style.display = "block"; 
+            }
+        }
+    </script>
+
+</body>
+</html>
