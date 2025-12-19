@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Penjumlahan Sederhana</title>
+    <style>
+        body { font-family: serif; padding: 20px; }
+        .input-container { margin-bottom: 10px; }
+        input { width: 150px; margin-right: 5px; }
+        #hasil { margin-top: 15px; font-weight: normal; }
+        button { padding: 2px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Penjumlahan Sederhana</h2>
+
+    <div class="input-container">
+        <input type="number" id="angka1">
+        <input type="number" id="angka2">
+    </div>
+
+    <button onclick="tambah()">+</button>
+
+    <div id="hasil"></div>
+
+    <script>
+        function tambah() {
+            let val1 = document.getElementById('angka1').value;
+            let val2 = document.getElementById('angka2').value;
+            let display = document.getElementById('hasil');
+
+            if (val1 !== "" && val2 !== "") {
+                let total = parseFloat(val1) + parseFloat(val2);
+                display.innerText = total;
+            } else {
+                display.innerText = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
