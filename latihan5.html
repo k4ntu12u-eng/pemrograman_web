@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Sederhana</title>
+    <style>
+        body { font-family: serif; padding: 20px; }
+        .input-group { margin-bottom: 10px; }
+        input { width: 150px; margin-right: 5px; }
+        button { padding: 2px 8px; cursor: pointer; margin-right: 5px; }
+        
+        #hasil { 
+            margin-top: 15px; 
+            font-size: 16px; 
+            font-weight: normal; 
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Kalkulator Sederhana</h2>
+
+    <div class="input-group">
+        <input type="number" id="bil1">
+        <input type="number" id="bil2">
+    </div>
+
+    <button onclick="hitung('tambah')">+</button>
+    <button onclick="hitung('kurang')">-</button>
+
+    <div id="hasil"></div>
+
+    <script>
+        function hitung(operasi) {
+            let angka1 = document.getElementById('bil1').value;
+            let angka2 = document.getElementById('bil2').value;
+            let display = document.getElementById('hasil');
+
+            if (angka1 !== "" && angka2 !== "") {
+                let a = parseFloat(angka1);
+                let b = parseFloat(angka2);
+                let total;
+
+                if (operasi === 'tambah') {
+                    total = a + b;
+                } else {
+                    total = a - b;
+                }
+                
+                display.innerText = total;
+            } else {
+                display.innerText = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
