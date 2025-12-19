@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Konversi Mata Uang</title>
+    <style>
+        body { font-family: serif; padding: 20px; }
+        .container { display: flex; flex-direction: column; gap: 5px; width: 300px; }
+        .buttons { display: flex; gap: 5px; margin-top: 5px; }
+        #hasil { margin-top: 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <h2>Konversi Mata Uang</h2>
+
+    <div class="container">
+        <div>
+            <span id="labelInput">Dollar</span>
+            <input type="number" id="inputNilai" value="0">
+        </div>
+
+        <div class="buttons">
+            <button onclick="prosesKonversi()">Konversi</button>
+            <button onclick="tukarPosisi()">Tukar</button>
+        </div>
+
+        <div id="hasil">Rupiah 0</div>
+    </div>
+
+    <script>
+        let kurs = 15000;
+        let modeDollarKeRupiah = true;
+
+        function prosesKonversi() {
+            let nilai = parseFloat(document.getElementById('inputNilai').value);
+            let display = document.getElementById('hasil');
+
+            if (modeDollarKeRupiah) {
+                let total = nilai * kurs;
+                display.innerText = "Rupiah " + total.toLocaleString('id-ID');
+            } else {
+                let total = nilai / kurs;
+                display.innerText = "Dollar " + total;
+            }
+        }
+
+        function tukarPosisi() {
+            let label = document.getElementById('labelInput');
+            let display = document.getElementById('hasil');
+            let input = document.getElementById('inputNilai');
+
+            if (modeDollarKeRupiah) {
+                label.innerText = "Rupiah";
+                display.innerText = "Dollar 0";
+                modeDollarKeRupiah = false;
+            } else {
+                label.innerText = "Dollar";
+                display.innerText = "Rupiah 0";
+                modeDollarKeRupiah = true;
+            }
+            input.value = 0;
+        }
+    </script>
+
+</body>
+</html>
