@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Latihan 9 - Cek Kelulusan</title>
+    <style>
+        body { font-family: serif; padding: 20px; }
+        .input-group { margin-bottom: 10px; }
+        label { display: inline-block; width: 120px; }
+        
+        #hasil { 
+            margin-top: 15px; 
+            font-size: 16px; 
+            font-weight: normal; 
+            color: black; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="input-group">
+        <label>Batas Kelulusan</label>
+        <input type="number" id="batas">
+    </div>
+
+    <h2>Cek Kelulusan</h2>
+
+    <div class="input-group">
+        <label>Nilai Ujian</label>
+        <input type="number" id="nilai">
+    </div>
+
+    <button onclick="cekLulus()">Cek</button>
+
+    <div id="hasil"></div>
+
+    <script>
+        function cekLulus() {
+            let batasInput = document.getElementById('batas').value;
+            let nilaiInput = document.getElementById('nilai').value;
+            let display = document.getElementById('hasil');
+
+            if (batasInput !== "" && nilaiInput !== "") {
+                let batas = parseFloat(batasInput);
+                let nilai = parseFloat(nilaiInput);
+                
+                if (nilai >= batas) {
+                    display.innerText = "LULUS";
+                } else {
+                    display.innerText = "TIDAK LULUS";
+                }
+            } else {
+                display.innerText = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
