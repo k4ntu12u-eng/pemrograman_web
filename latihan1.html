@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="tombol1" onclick="fungsi1(event)">Tombol1</button>
+    <button id="tombol2" onclick="fungsi2(event)">Tombol2</button>
+    <button onclick="fungsi3()">Reset</button>
+
+    <p id="hasil"></p>
+
+    <script>
+        
+        function fungsi1(e) {
+            document.getElementById("hasil").textContent = "budi";
+        }
+
+        function fungsi2(e) {
+            document.getElementById("hasil").textContent = "andi";
+        }
+
+        function fungsi3() {
+            document.getElementById("hasil").textContent = "";
+        }
+
+
+    </script>
+</body>
+</html>
