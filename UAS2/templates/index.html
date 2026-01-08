@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistem Akademik Mahasiswa</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; line-height: 1.6; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .btn-reset { color: red; text-decoration: none; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h1>Menu Utama Akademik</h1>
+
+    <div class="box">
+        <h3>1. Biodata</h3>
+        <form action="/update_biodata" method="post">
+            Nama: <input type="text" name="nama" value="{{ data.nama }}" required>
+            NIM: <input type="text" name="nim" value="{{ data.nim }}" required>
+            <button type="submit">Simpan Biodata</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h3>2 & 3. Input Mata Kuliah & Nilai</h3>
+        <form action="/tambah_nilai" method="post">
+            Matkul: <input type="text" name="matkul" required>
+            SKS: <input type="number" name="sks" min="1" max="6" required>
+            Nilai: <input type="number" name="nilai" step="0.1" min="0" max="100" required>
+            <button type="submit">Tambah Data</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h3>4. Daftar Nilai (Mahasiswa: {{ data.nama or '-' }})</h3>
+        <table>
+            <tr>
+                <th>Mata Kuliah</th>
+                <th>SKS</th>
+                <th>Nilai</th>
+            </tr>
+            {% for i in range(data.list_matkul|length) %}
+            <tr>
+                <td>{{ data.list_matkul[i] }}</td>
+                <td>{{ data.list_sks[i] }}</td>
+                <td>{{ data.list_nilai[i] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="box" style="background-color: #e7f3fe;">
+        <h3>5. Hasil Indeks Prestasi (IP)</h3>
+        <p style="font-size: 1.5em; font-weight: bold;">IP Anda: {{ ip }}</p>
+    </div>
+
+    <a href="/reset" class="btn-reset" onclick="return confirm('Hapus semua data?')">6. Reset/Keluar Program</a>
+
+</body>
+</html>
