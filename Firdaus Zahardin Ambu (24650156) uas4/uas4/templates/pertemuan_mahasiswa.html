@@ -1,0 +1,31 @@
+<nav>
+    <a href="/dashboard/mahasiswa">Dashboard</a> | 
+    <a href="/mahasiswa/pertemuan">Pertemuan</a> | 
+    <a href="/logout">Logout</a>
+</nav>
+<hr>
+
+{% if p_detail %}
+    <h2>Detail Pertemuan</h2>
+    <p><b>{{ p_detail.nama }}</b></p>
+    <p>tanggal {{ p_detail.tanggal }}</p>
+    <p>waktu: {{ p_detail.mulai }} - {{ p_detail.selesai }}</p>
+
+    <a href="javascript:void(0)" id="btn-qr" onclick="document.getElementById('q').style.display='block';this.style.display='none'">Tampilkan QR Presensi</a>
+    
+    <div id="q" style="display:none; text-align:center; margin-top:20px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=450x450&data={{ session['user_login'] }}|{{ session['nim'] }}&ecc=H" style="border:5px solid black;">
+        <p style="font-size:18px;"><b>{{ session['user_login'] }} - {{ session['nim'] }}</b></p>
+    </div>
+
+{% else %}
+    <h1>Mahasiswa</h1>
+    <h3>daftar pertemuan</h3>
+    {% if pertemuan %}
+        {% for p in pertemuan %}
+        <p><a href="/mahasiswa/pertemuan/{{ p.id }}">{{ p.nama }}</a></p>
+        {% endfor %}
+    {% else %}
+        <p>tidak ada data</p>
+    {% endif %}
+{% endif %}

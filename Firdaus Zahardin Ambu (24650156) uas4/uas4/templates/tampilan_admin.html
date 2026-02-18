@@ -1,0 +1,29 @@
+<nav><a href="/Admin">Admin</a> | <a href="/logout">Logout</a></nav>
+<hr>
+<h1>Admin</h1>
+<p>current user: <b>{{ session['user_login'] }}</b></p>
+
+{% if session.get('error_admin') %}
+<p style="color:red"><b>{{ session.pop('error_admin') }}</b></p>
+{% endif %}
+
+<form action="/add_user" method="POST">
+    <input type="text" name="username" placeholder="User" required>
+    <input type="password" name="password" placeholder="Pass" required>
+    <input type="text" name="nim" placeholder="NIM">
+    <select name="role">
+        <option value="Mahasiswa">Mahasiswa</option>
+        <option value="Dosen">Dosen</option>
+        <option value="Admin">Admin</option>
+    </select>
+    <button type="submit">Buat</button>
+</form>
+<hr>
+<h3>Daftar User Baru:</h3>
+{% if users %}
+    {% for u in users %}
+    <p>{{ loop.index }} {{ u.role }} <b>{{ u.username }}</b> <a href="/delete_user/{{ u.id }}">hapus</a></p>
+    {% endfor %}
+{% else %}
+    <p>Tidak ada user yang ditambahkan.</p>
+{% endif %}

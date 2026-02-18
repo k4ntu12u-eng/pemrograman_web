@@ -1,0 +1,74 @@
+<nav>
+    <a href="/dashboard/dosen">Dashboard</a> | 
+    <a href="/dosen/pertemuan">Pertemuan</a> | 
+    <a href="/dosen/daftar_mahasiswa">Daftar Mahasiswa</a> | 
+    <a href="/logout">Logout</a>
+</nav>
+<hr>
+<h1>Dosen</h1>
+
+{% if p_detail %}
+    <h2>Detail Pertemuan</h2>
+    <p><b>{{ p_detail.nama }}</b></p>
+    <p>tanggal {{ p_detail.tanggal }}</p>
+    <p>waktu {{ p_detail.mulai }} . . . {{ p_detail.selesai }}</p>
+
+    <a href="javascript:void(0)" onclick="mulai()" id="mulai-link">mulai presensi</a>
+    <div id="cam-box" style="display:none; margin-top:10px;">
+        <video id="v" width="300" height="200" autoplay style="border:1px solid black;"></video>
+        <canvas id="c" style="display:none;"></canvas>
+    </div>
+
+    <h3>daftar hadir mahasiswa</h3>
+    {% if list_hadir %}
+        {% for h in list_hadir %}<p>{{ loop.index }}) {{ h.info }}</p>{% endfor %}
+    {% else %}<p>tidak ada user</p>{% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script>
+        let sO = null, inv = null;
+        function mulai() {
+            document.getElementById('mulai-link').style.display='none';
+            document.getElementById('cam-box').style.display='block';
+            navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(s=>{
+                sO=s; document.getElementById('v').srcObject=s; inv=setInterval(scan, 1000);
+            });
+        }
+        function stop() { if(sO){sO.getTracks().forEach(t=>t.stop());} clearInterval(inv); document.getElementById('cam-box').style.display='none'; document.getElementById('mulai-link').style.display='block'; }
+        function scan() {
+            const v=document.getElementById('v'), c=document.getElementById('c'), ctx=c.getContext('2d');
+            if(v.readyState===v.HAVE_ENOUGH_DATA){
+                c.height=v.videoHeight; c.width=v.videoWidth; ctx.drawImage(v,0,0);
+                const code=jsQR(ctx.getImageData(0,0,c.width,c.height).data, c.width, c.height);
+                if(code){
+                    const mJ=new Date("{{p_detail.tanggal}}T{{p_detail.mulai}}");
+                    if((new Date()-mJ)/60000 > 15){ alert("ERROR: Sudah telat 15 menit!"); stop(); return; }
+                    fetch('/dosen/submit_absen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id_p:"{{p_detail.id}}",info_mhs:code.data})})
+                    .then(r=>r.json()).then(d=>{ if(d.status==="success"){stop();location.reload();}else{alert("ERROR: "+d.message);stop();} });
+                }
+            }
+        }
+    </script>
+{% else %}
+    <form action="/dosen/hapus_semua">
+        <button type="submit">Hapus Semua Pertemuan</button>
+    </form>
+
+    <h3>Tambah Pertemuan</h3>
+    <form action="/dosen/tambah" method="POST">
+        <p>Nama <input type="text" name="nama" required></p>
+        <p>Tanggal <input type="date" name="tanggal" required></p>
+        <p>Waktu Mulai <input type="time" name="mulai" required></p>
+        <p>Waktu Selesai <input type="time" name="selesai" required></p>
+        <button type="submit">submit</button>
+    </form>
+    <hr>
+    <h3>daftar pertemuan</h3>
+    {% if pertemuan %}
+        {% for p in pertemuan %}
+        <p>{{ loop.index }}) {{ p.nama }} | {{ p.mulai }} . . . {{ p.selesai }} <a href="/dosen/pertemuan/{{ p.id }}">detail</a></p>
+        {% endfor %}
+    {% else %}
+        <p>tidak ada data</p>
+    {% endif %}
+{% endif %}

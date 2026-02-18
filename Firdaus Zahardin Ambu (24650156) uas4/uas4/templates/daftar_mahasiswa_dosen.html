@@ -1,0 +1,28 @@
+<nav>
+    <a href="/dashboard/dosen">Dashboard</a> | 
+    <a href="/dosen/pertemuan">Pertemuan</a> | 
+    <a href="/dosen/daftar_mahasiswa">Daftar Mahasiswa</a> | 
+    <a href="/logout">Logout</a>
+</nav>
+<hr>
+<h1>Daftar Mahasiswa</h1>
+<p>current user: <b>{{ session['user_login'] }}</b></p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>No</th>
+        <th>Nama Mahasiswa</th>
+        <th>NIM</th>
+    </tr>
+    {% if mahasiswa %}
+        {% for m in mahasiswa %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ m.username }}</td>
+            <td>{{ m.nim }}</td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan="3">Belum ada mahasiswa terdaftar.</td></tr>
+    {% endif %}
+</table>
